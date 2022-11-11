@@ -36,7 +36,7 @@ namespace _Game.Code
         private CustomSampler jobsSampler;
         private CustomSampler sampler;
 
-        void Start()
+        public void Spawn()
         {
             sampler = CustomSampler.Create("Leafs");
             jobsSampler = CustomSampler.Create("Leafs.Jobs");
@@ -77,6 +77,9 @@ namespace _Game.Code
             }
             else
             {
+                if (jobsSampler == null) 
+                    return;
+                
                 jobsSampler.Begin();
 
                 velocityUtil.Update();
@@ -165,6 +168,8 @@ namespace _Game.Code
                     }
 
                     pos -= velocities[i][j] * Time.deltaTime;
+                    if (pos.x > 1)
+                        scale = Vector3.zero;
                     matrices[i][j].SetTRS(pos, rot, scale);
                 }
             }
